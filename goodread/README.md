@@ -106,6 +106,11 @@ ex: test case detail of feature Search : /src/test/fe/SearchTestSuite.robot
 check below pic
 ![test case detail of api ](/img/img13.png )
 
+Before you run the test case, you need to update the device name and android version of the device
+open the file /src/env/staging/mobile_config.robot 
+and update the row at line 5 and line 6
+![test case detail of api ](/img/img.png )
+
 
 It time to run the test case
 Make sure you are stay in the folder ${ROOT}/src
