@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.1.2 (Python 3.9.10 on darwin)" generated="20220606 08:04:23.339" rpa="false" schemaversion="2">
+<suite id="s1" name="Fe" source="/Users/admin/working/goodread/src/test/fe">
+<suite id="s1-s1" name="SearchTestSuite" source="/Users/admin/working/goodread/src/test/fe/SearchTestSuite.robot">
+<kw name="Start Appium Server" library="AppiumServerkeywords" type="SETUP">
+<doc>This keyword is used for starting appium server</doc>
+<kw name="Terminate All Current Session" library="CustomizeMobileLibs">
+<doc>This keyword is used for terminating the current appium process
+First it wil try to fins which os is? because each of different OS we will have different commands to terminate appium
+Then we will use command to terminate appium session.</doc>
+<status status="PASS" starttime="20220606 08:04:23.550" endtime="20220606 08:04:23.559"/>
+</kw>
+<kw name="Get Current Os" library="CustomizeMobileLibs">
+<var>${current_os}</var>
+<msg timestamp="20220606 08:04:23.559" level="INFO">${current_os} = darwin</msg>
+<status status="PASS" starttime="20220606 08:04:23.559" endtime="20220606 08:04:23.559"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${window}</var>
+<arg>"window" in """${current_os}"""</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220606 08:04:23.560" level="INFO">${window} = False</msg>
+<status status="PASS" starttime="20220606 08:04:23.559" endtime="20220606 08:04:23.560"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>'${window}'=='True'</arg>
+<arg>Start Appium On Window</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" starttime="20220606 08:04:23.560" endtime="20220606 08:04:23.560"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>'${window}'!='True'</arg>
+<arg>Start Appium On Mac</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Start Appium On Mac" library="AppiumServerkeywords">
+<doc>This keyword is used for starting appium on mac</doc>
+<kw name="Replace String" library="String">
+<var>${log_dir}</var>
+<arg>/Users/admin/working/goodread/src/main/keywords</arg>
+<arg>/src/main/keywords</arg>
+<arg>${EMPTY}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20220606 08:04:23.561" level="INFO">${log_dir} = /Users/admin/working/goodread</msg>
+<status status="PASS" starttime="20220606 08:04:23.561" endtime="20220606 08:04:23.561"/>
+</kw>
+<kw name="Start Process" library="Process">
+<arg>appium</arg>
+<arg>-p</arg>
+<arg>${MB_APPIUM_PORT}</arg>
+<arg>shell=True</arg>
+<arg>alias=appiumserver</arg>
+<arg>stdout=${log_dir}/log/appium_stdout.txt</arg>
+<arg>stderr=${log_dir}/log/appium_stderr.txt</arg>
+<doc>Starts a new process on background.</doc>
+<msg timestamp="20220606 08:04:23.562" level="INFO">Starting process:
+appium -p 4724</msg>
+<status status="PASS" starttime="20220606 08:04:23.561" endtime="20220606 08:04:23.567"/>
+</kw>
+<status status="PASS" starttime="20220606 08:04:23.560" endtime="20220606 08:04:23.567"/>
+</kw>
+<status status="PASS" starttime="20220606 08:04:23.560" endtime="20220606 08:04:23.567"/>
+</kw>
+<kw name="Process Should Be Running" library="Process">
+<arg>appiumserver</arg>
+<doc>Verifies that the process is running.</doc>
+<status status="PASS" starttime="20220606 08:04:23.568" endtime="20220606 08:04:23.568"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>15s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20220606 08:04:38.570" level="INFO">Slept 15 seconds</msg>
+<status status="PASS" starttime="20220606 08:04:23.568" endtime="20220606 08:04:38.570"/>
+</kw>
+<status status="PASS" starttime="20220606 08:04:23.549" endtime="20220606 08:04:38.570"/>
+</kw>
+<test id="s1-s1-t1" name="As a user I want to login successfully with valid credential">
+<kw name="Open App On Android Device" library="Commonkeywords" type="SETUP">
+<doc>This keyword is used for open app on device</doc>
+<kw name="Set Variable" library="BuiltIn">
+<var>${path}</var>
+<arg>/Users/admin/working/goodread/src/main/keywords</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220606 08:04:38.573" level="INFO">${path} = /Users/admin/working/goodread/src/main/keywords</msg>
+<status status="PASS" starttime="20220606 08:04:38.573" endtime="20220606 08:04:38.574"/>
+</kw>
+<kw name="Replace String" library="String">
+<var>${path}</var>
+<arg>${path}</arg>
+<arg>keywords</arg>
+<arg>app</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20220606 08:04:38.574" level="INFO">${path} = /Users/admin/working/goodread/src/main/app</msg>
+<status status="PASS" starttime="20220606 08:04:38.574" endtime="20220606 08:04:38.574"/>
+</kw>
+<kw name="Open Application" library="AppiumLibrary">
+<arg>${MB_REMOTE_URL}</arg>
+<arg>platformName=${MB_PLATFORM_NAME}</arg>
+<arg>platformVersion=${MB_PLATFORM_VERSION}</arg>
+<arg>deviceName=${MB_DEVICE_NAME}</arg>
+<arg>app=${path}/${MB_APK_FILENAME}</arg>
+<arg>appPackage=${MB_APP_PACKAGE}</arg>
+<arg>appActivity=${MB_APP_ACTIVITY}</arg>
+<arg>newCommandTimeout=${MB_NEWCOMMANDTIMEOUT}</arg>
+<arg>adbExecTimeout=${MB_NEWCOMMANDTIMEOUT}</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |</doc>
+<status status="PASS" starttime="20220606 08:04:38.574" endtime="20220606 08:04:54.518"/>
+</kw>
+<status status="PASS" starttime="20220606 08:04:38.573" endtime="20220606 08:04:54.518"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${hotel_name}</var>
+<arg>EROS HOTEL</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220606 08:04:54.519" level="INFO">${hotel_name} = EROS HOTEL</msg>
+<status status="PASS" starttime="20220606 08:04:54.519" endtime="20220606 08:04:54.519"/>
+</kw>
+<kw name="Use App Without Log In" library="Loginkeywords">
+<kw name="Click Btn Sign In Now At Main Screen" library="MainScreen">
+<doc>This key word is used for clicking the button Sign at the main screen</doc>
+<kw name="Set Variable" library="BuiltIn">
+<var>${btn_sign_in_now}</var>
+<arg>xpath=//*[@text='Sign-in now']</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220606 08:04:54.520" level="INFO">${btn_sign_in_now} = xpath=//*[@text='Sign-in now']</msg>
+<status status="PASS" starttime="20220606 08:04:54.520" endtime="20220606 08:04:54.520"/>
+</kw>
+<kw name="Click On Element" library="Commonkeywords">
+<arg>${btn_sign_in_now}</arg>
+<doc>This keyword is used for waiting an element is visible and click it on mobile</doc>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>${p_element}</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="PASS" starttime="20220606 08:04:54.521" endtime="20220606 08:05:05.909"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>${p_element}</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20220606 08:05:05.912" level="INFO">Clicking element 'xpath=//*[@text='Sign-in now']'.</msg>
+<status status="PASS" starttime="20220606 08:05:05.909" endtime="20220606 08:05:06.464"/>
+</kw>
+<status status="PASS" starttime="20220606 08:04:54.520" endtime="20220606 08:05:06.465"/>
+</kw>
+<status status="PASS" starttime="20220606 08:04:54.519" endtime="20220606 08:05:06.465"/>
+</kw>
+<kw name="Click Skip Button At Main Screen" library="MainScreen">
+<doc>This keyword is used for clicking button skip login at login screen</doc>
+<kw name="Set Variable" library="BuiltIn">
+<var>${btn_skip}</var>
+<arg>xpath=//*[@text='Skip']</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220606 08:05:06.467" level="INFO">${btn_skip} = xpath=//*[@text='Skip']</msg>
+<status status="PASS" starttime="20220606 08:05:06.466" endtime="20220606 08:05:06.467"/>
+</kw>
+<kw name="Click On Element" library="Commonkeywords">
+<arg>${btn_skip}</arg>
+<doc>This keyword is used for waiting an element is visible and click it on mobile</doc>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>${p_element}</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="PASS" starttime="20220606 08:05:06.468" endtime="20220606 08:05:09.471"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>${p_element}</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20220606 08:05:09.473" level="INFO">Clicking element 'xpath=//*[@text='Skip']'.</msg>
+<status status="PASS" starttime="20220606 08:05:09.471" endtime="20220606 08:05:09.873"/>
+</kw>
+<status status="PASS" starttime="20220606 08:05:06.468" endtime="20220606 08:05:09.874"/>
+</kw>
+<status status="PASS" starttime="20220606 08:05:06.466" endtime="20220606 08:05:09.874"/>
+</kw>
+<status status="PASS" starttime="20220606 08:04:54.519" endtime="20220606 08:05:09.874"/>
+</kw>
+<kw name="Search A Hotel Name" library="Searchkeywords">
+<arg>${hotel_name}</arg>
+<doc>This keyword is used for search a hotel, first click the menu hotel at the home screen, then click icon search, and then input search hotel name.</doc>
+<kw name="Click Menu Hotel At Home Screen" library="HomeScreen">
+<doc>This key word is used for clicking the menu hotel at the home screen</doc>
+<kw name="Set Variable" library="BuiltIn">
+<var>${menu_hotel}</var>
+<arg>xpath=//*[@text='Hotel']</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220606 08:05:09.876" level="INFO">${menu_hotel} = xpath=//*[@text='Hotel']</msg>
+<status status="PASS" starttime="20220606 08:05:09.875" endtime="20220606 08:05:09.876"/>
+</kw>
+<kw name="Click On Element" library="Commonkeywords">
+<arg>${menu_hotel}</arg>
+<doc>This keyword is used for waiting an element is visible and click it on mobile</doc>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>${p_element}</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="PASS" starttime="20220606 08:05:09.876" endtime="20220606 08:05:11.344"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>${p_element}</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20220606 08:05:11.347" level="INFO">Clicking element 'xpath=//*[@text='Hotel']'.</msg>
+<status status="PASS" starttime="20220606 08:05:11.344" endtime="20220606 08:05:12.516"/>
+</kw>
+<status status="PASS" starttime="20220606 08:05:09.876" endtime="20220606 08:05:12.517"/>
+</kw>
+<status status="PASS" starttime="20220606 08:05:09.875" endtime="20220606 08:05:12.517"/>
+</kw>
+<kw name="Click Search Icon At Search Screen" library="SearchScreen">
+<doc>This key word is used for clicking the search icon at the search screen</doc>
+<kw name="Set Variable" library="BuiltIn">
+<var>${icon_search}</var>
+<arg>xpath=//*[@text='Hotel']/../android.view.ViewGroup[@index=2]/android.widget.ImageView</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220606 08:05:12.518" level="INFO">${icon_search} = xpath=//*[@text='Hotel']/../android.view.ViewGroup[@index=2]/android.widget.ImageView</msg>
+<status status="PASS" starttime="20220606 08:05:12.518" endtime="20220606 08:05:12.518"/>
+</kw>
+<kw name="Click On Element" library="Commonkeywords">
+<arg>${icon_search}</arg>
+<doc>This keyword is used for waiting an element is visible and click it on mobile</doc>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>${p_element}</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="PASS" starttime="20220606 08:05:12.519" endtime="20220606 08:05:15.603"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>${p_element}</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20220606 08:05:15.606" level="INFO">Clicking element 'xpath=//*[@text='Hotel']/../android.view.ViewGroup[@index=2]/android.widget.ImageView'.</msg>
+<status status="PASS" starttime="20220606 08:05:15.604" endtime="20220606 08:05:16.315"/>
+</kw>
+<status status="PASS" starttime="20220606 08:05:12.518" endtime="20220606 08:05:16.316"/>
+</kw>
+<status status="PASS" starttime="20220606 08:05:12.517" endtime="20220606 08:05:16.316"/>
+</kw>
+<kw name="Set Txt Search At Search Screen" library="SearchScreen">
+<arg>${p_hotel_name}</arg>
+<doc>This key word is used for setting the search value at the search screen</doc>
+<kw name="Set Variable" library="BuiltIn">
+<var>${txt_search}</var>
+<arg>xpath=//*[@text='Thành phố, khách sạn, điểm đến']</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220606 08:05:16.316" level="INFO">${txt_search} = xpath=//*[@text='Thành phố, khách sạn, điểm đến']</msg>
+<status status="PASS" starttime="20220606 08:05:16.316" endtime="20220606 08:05:16.316"/>
+</kw>
+<kw name="Input Text On Element" library="Commonkeywords">
+<arg>${txt_search}</arg>
+<arg>${p_hotel_name}</arg>
+<doc>This keyword is used for waiting an element is visible and click it on mobile</doc>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>${p_element}</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="PASS" starttime="20220606 08:05:16.317" endtime="20220606 08:05:18.820"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>${p_element}</arg>
+<arg>${p_value}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<msg timestamp="20220606 08:05:18.824" level="INFO">Typing text 'EROS HOTEL' into text field 'xpath=//*[@text='Thành phố, khách sạn, điểm đến']'</msg>
+<status status="PASS" starttime="20220606 08:05:18.821" endtime="20220606 08:05:20.317"/>
+</kw>
+<status status="PASS" starttime="20220606 08:05:16.317" endtime="20220606 08:05:20.318"/>
+</kw>
+<status status="PASS" starttime="20220606 08:05:16.316" endtime="20220606 08:05:20.318"/>
+</kw>
+<status status="PASS" starttime="20220606 08:05:09.874" endtime="20220606 08:05:20.318"/>
+</kw>
+<kw name="Assert Search Hotel Result Are Correct" library="Searchkeywords">
+<arg>${hotel_name}</arg>
+<doc>This keyword is used for getting list hotel found, then try to verify found hotel name are started with the expected name.</doc>
+<kw name="Convert To Lower Case" library="String">
+<var>${expected_hotel_name}</var>
+<arg>${p_expected_hotel_name}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20220606 08:05:20.319" level="INFO">${expected_hotel_name} = eros hotel</msg>
+<status status="PASS" starttime="20220606 08:05:20.319" endtime="20220606 08:05:20.319"/>
+</kw>
+<kw name="Get List Hotel Found Searching" library="SearchScreen">
+<var>${list_hotel}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${xpath}</var>
+<arg>xpath=//*[@text='Khách sạn']/../../android.widget.TextView[@index=1]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220606 08:05:20.320" level="INFO">${xpath} = xpath=//*[@text='Khách sạn']/../../android.widget.TextView[@index=1]</msg>
+<status status="PASS" starttime="20220606 08:05:20.320" endtime="20220606 08:05:20.320"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>${xpath}</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="PASS" starttime="20220606 08:05:20.320" endtime="20220606 08:05:22.083"/>
+</kw>
+<kw name="Get Webelements" library="AppiumLibrary">
+<var>${list_hotel_found}</var>
+<arg>${xpath}</arg>
+<doc>Returns list of [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] objects matching ``locator``.</doc>
+<msg timestamp="20220606 08:05:22.312" level="INFO">${list_hotel_found} = [&lt;appium.webdriver.webelement.WebElement (session="d1b87e59-9698-4712-8c56-a0aac80b8103", element="00000000-0000-029d-ffff-ffff00000281")&gt;, &lt;appium.webdriver.webelement.WebElement (session="d1b87e59-9...</msg>
+<status status="PASS" starttime="20220606 08:05:22.084" endtime="20220606 08:05:22.312"/>
+</kw>
+<msg timestamp="20220606 08:05:22.312" level="INFO">${list_hotel} = [&lt;appium.webdriver.webelement.WebElement (session="d1b87e59-9698-4712-8c56-a0aac80b8103", element="00000000-0000-029d-ffff-ffff00000281")&gt;, &lt;appium.webdriver.webelement.WebElement (session="d1b87e59-9...</msg>
+<status status="PASS" starttime="20220606 08:05:20.319" endtime="20220606 08:05:22.312"/>
+</kw>
+<for flavor="IN">
+<var>${element}</var>
+<value>@{list_hotel}</value>
+<iter>
+<var name="${element}">&lt;appium.webdriver.webelement.WebElement (session="d1b87e59-9698-4712-8c56-a0aac80b8103", element="00000000-0000-029d-ffff-ffff00000281")&gt;</var>
+<kw name="Get Text" library="AppiumLibrary">
+<var>${text}</var>
+<arg>${element}</arg>
+<doc>Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)</doc>
+<msg timestamp="20220606 08:05:22.339" level="INFO">Element '&lt;appium.webdriver.webelement.WebElement (session="d1b87e59-9698-4712-8c56-a0aac80b8103", element="00000000-0000-029d-ffff-ffff00000281")&gt;' text is 'EROS HOTEL' </msg>
+<msg timestamp="20220606 08:05:22.339" level="INFO">${text} = EROS HOTEL</msg>
+<status status="PASS" starttime="20220606 08:05:22.313" endtime="20220606 08:05:22.339"/>
+</kw>
+<kw name="Convert To Lower Case" library="String">
+<var>${actual_hotel_name}</var>
+<arg>${text}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20220606 08:05:22.339" level="INFO">${actual_hotel_name} = eros hotel</msg>
+<status status="PASS" starttime="20220606 08:05:22.339" endtime="20220606 08:05:22.339"/>
+</kw>
+<kw name="Should Start With" library="BuiltIn">
+<arg>${actual_hotel_name}</arg>
+<arg>${expected_hotel_name}</arg>
+<arg>msg=Hotel Search result not correct! Expected: ${expected_hotel_name} but actual: ${actual_hotel_name}</arg>
+<doc>Fails if the string ``str1`` does not start with the string ``str2``.</doc>
+<status status="PASS" starttime="20220606 08:05:22.340" endtime="20220606 08:05:22.340"/>
+</kw>
+<status status="PASS" starttime="20220606 08:05:22.313" endtime="20220606 08:05:22.340"/>
+</iter>
+<iter>
+<var name="${element}">&lt;appium.webdriver.webelement.WebElement (session="d1b87e59-9698-4712-8c56-a0aac80b8103", element="00000000-0000-029d-ffff-ffff00000287")&gt;</var>
+<kw name="Get Text" library="AppiumLibrary">
+<var>${text}</var>
+<arg>${element}</arg>
+<doc>Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)</doc>
+<msg timestamp="20220606 08:05:22.367" level="INFO">Element '&lt;appium.webdriver.webelement.WebElement (session="d1b87e59-9698-4712-8c56-a0aac80b8103", element="00000000-0000-029d-ffff-ffff00000287")&gt;' text is 'Eros Hotel 2' </msg>
+<msg timestamp="20220606 08:05:22.367" level="INFO">${text} = Eros Hotel 2</msg>
+<status status="PASS" starttime="20220606 08:05:22.340" endtime="20220606 08:05:22.367"/>
+</kw>
+<kw name="Convert To Lower Case" library="String">
+<var>${actual_hotel_name}</var>
+<arg>${text}</arg>
+<doc>Converts string to lower case.</doc>
+<msg timestamp="20220606 08:05:22.367" level="INFO">${actual_hotel_name} = eros hotel 2</msg>
+<status status="PASS" starttime="20220606 08:05:22.367" endtime="20220606 08:05:22.367"/>
+</kw>
+<kw name="Should Start With" library="BuiltIn">
+<arg>${actual_hotel_name}</arg>
+<arg>${expected_hotel_name}</arg>
+<arg>msg=Hotel Search result not correct! Expected: ${expected_hotel_name} but actual: ${actual_hotel_name}</arg>
+<doc>Fails if the string ``str1`` does not start with the string ``str2``.</doc>
+<status status="PASS" starttime="20220606 08:05:22.367" endtime="20220606 08:05:22.368"/>
+</kw>
+<status status="PASS" starttime="20220606 08:05:22.340" endtime="20220606 08:05:22.368"/>
+</iter>
+<status status="PASS" starttime="20220606 08:05:22.312" endtime="20220606 08:05:22.368"/>
+</for>
+<status status="PASS" starttime="20220606 08:05:20.318" endtime="20220606 08:05:22.368"/>
+</kw>
+<kw name="Close The Application" library="Commonkeywords" type="TEARDOWN">
+<doc>This keyword is used for closing app after test</doc>
+<kw name="Close Application" library="AppiumLibrary">
+<doc>Closes the current application and also close webdriver session.</doc>
+<status status="PASS" starttime="20220606 08:05:22.369" endtime="20220606 08:05:22.623"/>
+</kw>
+<status status="PASS" starttime="20220606 08:05:22.368" endtime="20220606 08:05:22.624"/>
+</kw>
+<doc>This test case is used to test the search function.
+Step 1: user open app
+Step 2: user click login and click skip button
+Step 3: user click icon search
+Step 4: user input a hotel name to search
+Step 5: verify all the found hotel name start with the hotel search name.</doc>
+<tag>fe</tag>
+<tag>search</tag>
+<status status="PASS" starttime="20220606 08:04:38.571" endtime="20220606 08:05:22.624"/>
+</test>
+<doc>This testsuite is used for testing feature searching.</doc>
+<status status="PASS" starttime="20220606 08:04:23.360" endtime="20220606 08:05:22.624"/>
+</suite>
+<status status="PASS" starttime="20220606 08:04:23.340" endtime="20220606 08:05:22.625"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">fe</stat>
+<stat pass="1" fail="0" skip="0">search</stat>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Fe">Fe</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="SearchTestSuite">Fe.SearchTestSuite</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

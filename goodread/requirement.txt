@@ -1,0 +1,5 @@
+robotframework
+robotframework-jsonlibrary
+robotframework-jsonvalidator
+robotframework-faker
+robotframework-appiumlibrary
